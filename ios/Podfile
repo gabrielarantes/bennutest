@@ -1,0 +1,30 @@
+# Uncomment the next line to define a global platform for your project
+ platform :ios, '9.0'
+
+target 'bennutest' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for bennutest
+
+
+
+  target 'bennutestTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
+
+target 'bennutest-tvOS' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for bennutest-tvOS
+
+  target 'bennutest-tvOSTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
