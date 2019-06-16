@@ -31,24 +31,7 @@ export default class Home extends Component {
     this.state = {
       user: [],
       todoList: [],
-      loading: true,
-      courses: [
-        {
-          name: "React Native"
-        },
-        {
-          name: "ReactJS"
-        },
-        {
-          name: "Dialog Flow"
-        },
-        {
-          name: "NodeJS"
-        },
-        {
-          name: "Flutter"
-        }
-      ]
+      loading: true
     };
   }
 
@@ -69,7 +52,7 @@ export default class Home extends Component {
           todoList: [...this.state.todoList, doc.data()]
         });
 
-        console.warn(JSON.stringify(this.state.todoList));
+        //console.warn(JSON.stringify(this.state.todoList));
         //return await this.state.todoList;
       });
     });
@@ -106,37 +89,22 @@ export default class Home extends Component {
                 </View>
               );
             })}
-
-            <TouchableOpacity
-              onPress={() => {
-                this.addTodo;
-              }}
-            >
-              <Icon
-                reverse
-                name="plus"
-                type="font-awesome"
-                color="#FA7043"
-                containerStyle={{}}
-              />
-            </TouchableOpacity>
           </ScrollView>
         </View>
 
-        {/* <View>
-          <Button
-            icon={
-              <Icon
-                name="close"
-                size={15}
-                color="white"
-                style={{ marginRight: 10 }}
-              />
-            }
-            title="Sair"
-            onPress={() => this.logout()}
+        <TouchableOpacity
+          onPress={() => {
+            this.props.navigation.navigate("Todo");
+          }}
+        >
+          <Icon
+            reverse
+            name="plus"
+            type="font-awesome"
+            color="#FA7043"
+            containerStyle={{ position: "absolute", bottom: 15, right: 15 }}
           />
-        </View> */}
+        </TouchableOpacity>
       </View>
     );
   }
