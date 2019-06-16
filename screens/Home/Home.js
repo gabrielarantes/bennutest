@@ -5,10 +5,19 @@ import {
   Platform,
   Alert,
   AsyncStorage,
-  ScrollView
+  ScrollView,
+  TouchableOpacity
 } from "react-native";
-import { Text, Avatar, Button, ListItem } from "react-native-elements";
-import Icon from "react-native-vector-icons/FontAwesome";
+import {
+  Text,
+  Avatar,
+  Button,
+  ListItem,
+  CheckBox,
+  Card,
+  Icon
+} from "react-native-elements";
+//import Icon from "react-native-vector-icons/FontAwesome";
 
 import { isEmpty } from "lodash";
 
@@ -60,13 +69,20 @@ export default class Home extends Component {
           todoList: [...this.state.todoList, doc.data()]
         });
 
-        return await this.state.todoList;
+        console.warn(JSON.stringify(this.state.todoList));
+        //return await this.state.todoList;
       });
     });
   }
 
   async componentDidMount() {
+    //getting all data from todo list
     this.getTodoList();
+  }
+
+  completeTodo(id, completed) {
+    completed = !completed;
+    console.warn(id, completed);
   }
 
   render() {
@@ -75,12 +91,39 @@ export default class Home extends Component {
         <View style={{ flex: 1, marginTop: 25 }}>
           <ScrollView>
             {this.state.todoList.map((todo, index) => {
-              return <ListItem key={index} title={todo.title} />;
+              return (
+                <View key={index}>
+                  <View style={{ flexDirection: "row" }}>
+                    <CheckBox
+                      onPress={() => {
+                        this.completeTodo(todo.id, todo.completed);
+                      }}
+                      checked={todo.completed}
+                    />
+
+                    <Text style={styles.itemTodo}>{todo.title}</Text>
+                  </View>
+                </View>
+              );
             })}
+
+            <TouchableOpacity
+              onPress={() => {
+                this.addTodo;
+              }}
+            >
+              <Icon
+                reverse
+                name="plus"
+                type="font-awesome"
+                color="#FA7043"
+                containerStyle={{}}
+              />
+            </TouchableOpacity>
           </ScrollView>
         </View>
 
-        <View>
+        {/* <View>
           <Button
             icon={
               <Icon
@@ -93,7 +136,7 @@ export default class Home extends Component {
             title="Sair"
             onPress={() => this.logout()}
           />
-        </View>
+        </View> */}
       </View>
     );
   }
@@ -104,5 +147,9 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 15,
     paddingTop: Platform.OS === "ios" ? 40 : 10
+  },
+
+  itemTodo: {
+    marginTop: 15
   }
 });
